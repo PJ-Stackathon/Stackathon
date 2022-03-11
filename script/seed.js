@@ -1,29 +1,124 @@
-'use strict'
+"use strict";
 
-const {db, models: {User} } = require('../server/db')
+const surnameArray = require('./surnames.js');
+
+const {
+  uniqueNamesGenerator,
+  names,
+} = require("unique-names-generator");
+
+const mbtiArray = [
+  "INFP",
+  "ENFP",
+  "INFJ",
+  "ENFJ",
+  "INTJ",
+  "ENTJ",
+  "INTP",
+  "ENTP",
+  "ISFP",
+  "ESFP",
+  "ISTP",
+  "ESTP",
+  "ISFJ",
+  "ESFJ",
+  "ISTJ",
+  "ESTJ",
+];
+
+const loveLanguageArray = [
+  "words-of-affirmation",
+  "quality-time",
+  "receiving-gifts",
+  "acts-of-service",
+  "physical-touch",
+];
+
+const {
+  db,
+  models: { User },
+} = require("../server/db");
+
+// find random single whole number:
+function pickRandom(list) {
+  return list[Math.floor(Math.random() * list.length)];
+}
 
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
  */
 async function seed() {
-  await db.sync({ force: true }) // clears db and matches models to tables
-  console.log('db synced!')
+  await db.sync({ force: true }); // clears db and matches models to tables
+  console.log("db synced!🌱");
 
   // Creating Users
   const users = await Promise.all([
-    User.create({ username: 'cody', password: '123' }),
-    User.create({ username: 'murphy', password: '123' }),
-  ])
+    User.create({
+      username: "cody123",
+      firstName: "CoDy",
+      lastName: "ydoc",
+      password: "123",
+      email: "cody@seed.js",
+      mbti: "ENFJ",
+      loveLanguage: "words-of-affirmation"
+    }),
+    User.create({
+      username: "murphy123",
+      firstName: "MuRpHy",
+      lastName: "yhprum",
+      password: "123",
+      email: "murphy@seed.js",
+      mbti: "ISFP",
+      loveLanguage: "receiving-gifts"
+    }),
+  ]);
 
-  console.log(`seeded ${users.length} users`)
-  console.log(`seeded successfully`)
+
+
+  for (let i = 0; i < 50; i++) {
+    let randomNumComb = '';
+
+    // for building usernames:
+    for (let j = 0; j < 3; j++) {
+      // Returns a random integer from 0 to 9:
+      let addNum = Math.floor(Math.random() * 10);
+      randomNumComb += addNum
+    }
+
+    let firstName = uniqueNamesGenerator({ dictionaries: [names] });
+    let lastName = pickRandom(surnameArray);
+    let userFirst = firstName.toLowerCase()[0];
+    let userLast = lastName.toLowerCase().slice();
+    let username = userFirst + userLast + randomNumComb
+    let email = username + '@seed.js'
+    let mbti = pickRandom(mbtiArray);
+    let loveLanguage = pickRandom(loveLanguageArray);
+    // let city = uniqueNamesGenerator({ dictionaries: [city] });
+    // let state = uniqueNamesGenerator({ dictionaries: [state] });
+    const users = await Promise.all([
+      User.create({
+        username: `${username}`,
+        password: "123",
+        email: `${email}`,
+        firstName: `${firstName}`,
+        lastName: `${lastName}`,
+        mbti: `${mbti}`,
+        loveLanguage: `${loveLanguage}`,
+        // city: `${city}`,
+        // state: `${state}`,
+      }),
+    ]);
+  }
+
+  console.log(`seeded ${users.length} users`);
+  console.log(`seeded successfully`);
   return {
     users: {
       cody: users[0],
-      murphy: users[1]
-    }
-  }
+      murphy: users[1],
+    },
+  };
 }
 
 /*
@@ -32,16 +127,16 @@ async function seed() {
  The `seed` function is concerned only with modifying the database.
 */
 async function runSeed() {
-  console.log('seeding...')
+  console.log("seeding...");
   try {
-    await seed()
+    await seed();
   } catch (err) {
-    console.error(err)
-    process.exitCode = 1
+    console.error(err);
+    process.exitCode = 1;
   } finally {
-    console.log('closing db connection')
-    await db.close()
-    console.log('db connection closed')
+    console.log("closing db connection");
+    await db.close();
+    console.log("db connection closed");
   }
 }
 
@@ -51,8 +146,8 @@ async function runSeed() {
   any errors that might occur inside of `seed`.
 */
 if (module === require.main) {
-  runSeed()
+  runSeed();
 }
 
 // we export the seed function for testing purposes (see `./seed.spec.js`)
-module.exports = seed
+module.exports = seed;

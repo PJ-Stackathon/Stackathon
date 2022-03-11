@@ -1,4 +1,8 @@
-# FS-App-Template
+# Stackathon
+
+https://www.npmjs.com/package/unique-names-generator#numbers
+https://github.com/andreasonny83/unique-names-generator
+
 
 ## Setup
 
@@ -28,8 +32,8 @@ Now that you've got the code, follow these steps to get acclimated:
 * These commands will create both your **development** and **test** databases
 
 ```
-createdb <YOUR APP NAME HERE FROM package.json>
-createdb <YOUR APP NAME HERE FROM package.json>-test
+createdb stackathon
+createdb stackathon-test
 ```
 
 * By default, running `npm test` will use your test database, while
