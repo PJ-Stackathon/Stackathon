@@ -3,6 +3,9 @@
 https://www.npmjs.com/package/unique-names-generator#numbers
 https://github.com/andreasonny83/unique-names-generator
 
+Generate Schema:
+https://dbdiagram.io/d
+
 
 ## Setup
 
