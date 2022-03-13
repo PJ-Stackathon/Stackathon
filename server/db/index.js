@@ -3,13 +3,35 @@
 const db = require("./db");
 const User = require("./models/User");
 const IdealMBTI = require("./models/IdealMBTI");
+const Chat = require("./models/Chat");
+const Participant = require("./models/Participant");
+const Message = require("./models/Message");
 
-//associations could go here!
+// ASSOCIATIONS
+
+// Chat has userId as FK
+User.hasMany(Chat);
+Chat.belongsTo(User);
+
+// Participant has userId as FK
+User.hasMany(Participant);
+Participant.belongsTo(User);
+
+// Participant has chatId as FK
+Chat.hasMany(Participant);
+Participant.belongsTo(Chat);
+
+// Message has participantId as FK
+Participant.hasMany(Message);
+Message.belongsTo(Participant);
 
 module.exports = {
 	db,
 	models: {
 		User,
-		IdealMBTI
+		IdealMBTI,
+		Chat,
+		Participant,
+		Message
 	}
 };

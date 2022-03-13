@@ -31,6 +31,35 @@ const User = db.define("user", {
 			notEmpty: true
 		}
 	},
+	mbti: {
+		type: Sequelize.ENUM(
+			"INFP",
+			"ENFP",
+			"INFJ",
+			"ENFJ",
+			"INTJ",
+			"ENTJ",
+			"INTP",
+			"ENTP",
+			"ISFP",
+			"ESFP",
+			"ISTP",
+			"ESTP",
+			"ISFJ",
+			"ESFJ",
+			"ISTJ",
+			"ESTJ"
+		)
+	},
+	loveLanguage: {
+		type: Sequelize.ENUM(
+			"words-of-affirmation",
+			"quality-time",
+			"receiving-gifts",
+			"acts-of-service",
+			"physical-touch"
+		)
+	},
 	gender: {
 		type: Sequelize.ENUM("male", "female", "other")
 	},
