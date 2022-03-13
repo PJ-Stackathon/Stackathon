@@ -30,3 +30,4 @@ router.get('/:id', requireUserToken, async (req, res, next) => {
   }
 });
 
+// PUT /api/users/:id to update user info

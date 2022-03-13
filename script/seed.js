@@ -1,11 +1,12 @@
 "use strict";
-
-const surnameArray = require('./surnames.js');
-
 const {
-  uniqueNamesGenerator,
-  names,
-} = require("unique-names-generator");
+  db,
+  models: { User, IdealMBTI },
+} = require("../server/db");
+
+const surnameArray = require("./surnames.js");
+
+const { uniqueNamesGenerator, names } = require("unique-names-generator");
 
 const mbtiArray = [
   "INFP",
@@ -34,11 +35,6 @@ const loveLanguageArray = [
   "physical-touch",
 ];
 
-const {
-  db,
-  models: { User },
-} = require("../server/db");
-
 // find random single whole number:
 function pickRandom(list) {
   return list[Math.floor(Math.random() * list.length)];
@@ -61,7 +57,7 @@ async function seed() {
       password: "123",
       email: "cody@seed.js",
       mbti: "ENFJ",
-      loveLanguage: "words-of-affirmation"
+      loveLanguage: "words-of-affirmation",
     }),
     User.create({
       username: "murphy123",
@@ -70,28 +66,26 @@ async function seed() {
       password: "123",
       email: "murphy@seed.js",
       mbti: "ISFP",
-      loveLanguage: "receiving-gifts"
+      loveLanguage: "receiving-gifts",
     }),
   ]);
 
-
-
   for (let i = 0; i < 50; i++) {
-    let randomNumComb = '';
+    let randomNumComb = "";
 
     // for building usernames:
     for (let j = 0; j < 3; j++) {
       // Returns a random integer from 0 to 9:
       let addNum = Math.floor(Math.random() * 10);
-      randomNumComb += addNum
+      randomNumComb += addNum;
     }
 
     let firstName = uniqueNamesGenerator({ dictionaries: [names] });
     let lastName = pickRandom(surnameArray);
     let userFirst = firstName.toLowerCase()[0];
     let userLast = lastName.toLowerCase().slice();
-    let username = userFirst + userLast + randomNumComb
-    let email = username + '@seed.js'
+    let username = userFirst + userLast + randomNumComb;
+    let email = username + "@seed.js";
     let mbti = pickRandom(mbtiArray);
     let loveLanguage = pickRandom(loveLanguageArray);
     // let city = uniqueNamesGenerator({ dictionaries: [city] });
@@ -110,6 +104,62 @@ async function seed() {
       }),
     ]);
   }
+
+  IdealMBTI.bulkCreate([
+    { mbti: "INFP", idealMBTI: "ENFJ" },
+    { mbti: "INFP", idealMBTI: "ENTJ" },
+
+    { mbti: "ENFP", idealMBTI: "INFJ" },
+    { mbti: "ENFP", idealMBTI: "INTJ" },
+
+    { mbti: "INFJ", idealMBTI: "ENFP" },
+    { mbti: "INFJ", idealMBTI: "ENTP" },
+
+    { mbti: "ENFJ", idealMBTI: "INFP" },
+    { mbti: "ENFJ", idealMBTI: "ISFP" },
+
+    { mbti: "INTJ", idealMBTI: "ENFP" },
+    { mbti: "INTJ", idealMBTI: "ENTP" },
+
+    { mbti: "ENTJ", idealMBTI: "INFP" },
+    { mbti: "ENTJ", idealMBTI: "INTP" },
+
+    { mbti: "INTP", idealMBTI: "ENTJ" },
+    { mbti: "INTP", idealMBTI: "ESTJ" },
+
+    { mbti: "ENTP", idealMBTI: "INFJ" },
+    { mbti: "ENTP", idealMBTI: "INTJ" },
+
+    { mbti: "ISFP", idealMBTI: "ENFJ" },
+    { mbti: "ISFP", idealMBTI: "ESFJ" },
+    { mbti: "ISFP", idealMBTI: "ESTJ" },
+
+    { mbti: "ESFP", idealMBTI: "ISFJ" },
+    { mbti: "ESFP", idealMBTI: "ISTJ" },
+
+    { mbti: "ISTP", idealMBTI: "ESFJ" },
+    { mbti: "ISTP", idealMBTI: "ESTJ" },
+    
+    { mbti: "ESTP", idealMBTI: "ISFJ" },
+    { mbti: "ESTP", idealMBTI: "ISTJ" },
+
+    { mbti: "ISFJ", idealMBTI: "ESFP" },
+    { mbti: "ISFJ", idealMBTI: "ESTP" },
+
+    { mbti: "ESFJ", idealMBTI: "ISFP" },
+    { mbti: "ESFJ", idealMBTI: "ISTP" },
+
+    { mbti: "ISTJ", idealMBTI: "ESFP" },
+    { mbti: "ISTJ", idealMBTI: "ESTP" },
+
+    { mbti: "ESTJ", idealMBTI: "INTP" },
+    { mbti: "ESTJ", idealMBTI: "ISFP" },
+    { mbti: "ESTJ", idealMBTI: "ISTP" },
+  ]);
+
+    const cody = User.findByPk(1);
+    const murphy = User.findByPk(2);
+    cody.addUser(murphy);
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
