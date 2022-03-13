@@ -1,5 +1,5 @@
 const {
-  models: { User },
+	models: { User }
 } = require("../db");
 
 // const requireAdminToken = async (req, res, next) => {
@@ -19,20 +19,19 @@ const {
 // };
 
 const requireUserToken = async (req, res, next) => {
-  try {
-    const token = req.headers.authorization;
-    console.log(">>>>>>>>>", token)
-    const user = await User.findByToken(token);
-    req.user = user;
-    next();
-  } catch (error) {
-    next(error);
-  }
+	try {
+		const token = req.headers.authorization;
+		console.log(">>>>>>>>>", token);
+		const user = await User.findByToken(token);
+		req.user = user;
+		next();
+	} catch (error) {
+		next(error);
+	}
 };
 
-
 module.exports = {
-  requireUserToken,
+	requireUserToken
 };
 
 // requireAdminToken
