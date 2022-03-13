@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-	models: { User }
+	models: { User, Match }
 } = require("../db");
 module.exports = router;
 const { requireUserToken } = require("./gatekeeper");
@@ -31,4 +31,20 @@ router.get("/:id", requireUserToken, async (req, res, next) => {
 	}
 });
 
-// PUT /api/users/:id to update user info
+// GET /api/users/:id/matches
+router.get("/:id/matches", requireUserToken, async (req, res, next) => {
+	try {
+		const user = await User.findAll({
+			include: {
+				model: Match,
+				where: {
+					userId: req.params.id
+				}
+			}
+		});
+		res.json(user);
+	} catch (error) {
+		next(error);
+	}
+});
+
