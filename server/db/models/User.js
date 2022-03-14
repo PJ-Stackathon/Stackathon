@@ -65,7 +65,11 @@ const User = db.define("user", {
 	},
 	interestedIn: {
 		type: Sequelize.ENUM("male", "female", "everyone")
+	},
+	openToDrinking: {
+		
 	}
+
 	// city: {
 	// 	type: Sequelize.STRING
 	// },

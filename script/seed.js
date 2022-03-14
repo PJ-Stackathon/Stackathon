@@ -1,7 +1,7 @@
 "use strict";
 const {
 	db,
-	models: { User, IdealMBTI, Chat, Participant, Message, Match }
+	models: { User, IdealMBTI, Chat, Participant, Message, Match, Preference }
 } = require("../server/db");
 
 const surnameArray = require("./surnames.js");
@@ -66,7 +66,7 @@ async function seed() {
 			password: "123",
 			email: "murphy@seed.js",
 			mbti: "ISFP",
-			loveLanguage: "receiving-gifts"
+			loveLanguage: "words-of-affirmation"
 		})
 	]);
 
@@ -183,6 +183,12 @@ async function seed() {
 		Match.create({ userId: 1, yourMatchId: 3 }),
 		Match.create({ userId: 3, yourMatchId: 1 })
 	]);
+
+	// Adding User-Preference Associations
+	await Promise.all([
+		Preference.create({ userId: 1, interestedIn: 'everyone', openToDrinking: true }), // preferences for cody
+		Preference.create({ userId: 2, interestedIn: 'everyone', openToDrinking: true }) // preferences for murphy
+    ]);
 
 	console.log(`seeded ${users.length} users`);
 	console.log(`seeded successfully`);

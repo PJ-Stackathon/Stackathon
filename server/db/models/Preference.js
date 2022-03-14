@@ -3,11 +3,7 @@ const db = require("../db");
 
 const Preference = db.define("preference", {
     interestedIn: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    age: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.ENUM('male', 'female', 'everyone'),
         allowNull: false
     },
     openToDrinking: {

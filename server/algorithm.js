@@ -13,12 +13,12 @@ function findMatches(user) {
 
 	// const preferences = user.preferences
 	// for testing purposes:
-	const preferences = {
-		interestedIn: "everyone",
-		ageMin: 25,
-		ageMax: 30,
-		openToDrinking: false
-	};
+	// const preferences = {
+	// 	interestedIn: "everyone",
+	// 	ageMin: 25,
+	// 	ageMax: 30,
+	// 	openToDrinking: false
+	// };
 
 	const idealMBTIs = IdealMBTI.findAll({
 		where: {
@@ -28,10 +28,8 @@ function findMatches(user) {
 
 	const users = User.findAll({
 		where: {
-			interestedIn: preferences.interestedIn, // string
-			ageMin: { [Op.gte]: preferences.ageMin }, // >= 25
-			ageMax: { [Op.lte]: preferences.ageMax }, // <= 30
-			openToDrinking: preferences.openToDrinking, // boolean
+			interestedIn: user.interestedIn, // string
+			openToDrinking: user.openToDrinking, // boolean
 			mbti: [...idealMBTIs], // find match with MBTIs in [...idealMBTIs]
 			loveLanguage: user.loveLanguage // user's primary love language
 		}
@@ -43,3 +41,7 @@ function findMatches(user) {
 module.exports = {
 	findMatches
 };
+
+
+// ageMin: { [Op.gte]: preferences.ageMin }, // >= 25
+// ageMax: { [Op.lte]: preferences.ageMax }, // <= 30
