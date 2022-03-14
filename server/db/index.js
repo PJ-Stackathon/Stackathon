@@ -26,18 +26,9 @@ Participant.belongsTo(Chat);
 Participant.hasMany(Message);
 Message.belongsTo(Participant);
 
-<<<<<<< HEAD
-User.belongsToMany(User, { as: "User", foreignKey: "userId", through: "matches" });
-User.belongsToMany(User, {
-	as: "YourMatch",
-	foreignKey: "yourMatchId",
-	through: "matches"
-});
-=======
 // User has matchId as FK
 User.hasMany(Match);
 Match.belongsTo(User);
->>>>>>> main
 
 module.exports = {
 	db,
