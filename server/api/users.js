@@ -32,19 +32,22 @@ router.get("/:id", requireUserToken, async (req, res, next) => {
 });
 
 // GET /api/users/:id/matches
-router.get("/:id/matches", requireUserToken, async (req, res, next) => {
+router.get("/:id/matches", async (req, res, next) => {
 	try {
-		const user = await User.findAll({
-			include: {
-				model: Match,
-				where: {
-					userId: req.params.id
-				}
+		const matchArray = await Match.findAll({
+			where: {
+				userId: req.params.id
 			}
 		});
-		res.json(user);
+
+		const yourMatchArray = await Promise.all(
+			matchArray.map(async match => {
+				return User.findByPk(match.yourMatchId);
+			})
+		);
+
+		res.json(yourMatchArray);
 	} catch (error) {
 		next(error);
 	}
 });
-
