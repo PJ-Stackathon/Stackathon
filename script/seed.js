@@ -1,7 +1,7 @@
 "use strict";
 const {
 	db,
-	models: { User, IdealMBTI, Chat, Participant, Message }
+	models: { User, IdealMBTI, Chat, Participant, Message, Match }
 } = require("../server/db");
 
 const surnameArray = require("./surnames.js");
@@ -161,24 +161,28 @@ async function seed() {
 	await Promise.all([
 		Chat.create({ userId: 1 }), // cody chatId: 1
 		Chat.create({ userId: 1 }), // cody chatId: 2
-		Chat.create({ userId: 2 }), // murphy chatId: 3
+		Chat.create({ userId: 2 }) // murphy chatId: 3
 	]);
 
 	// Adding Chat-Participant Associations
 	await Promise.all([
 		Participant.create({ userId: 2, chatId: 1 }), // murphy with cody
-		Participant.create({ userId: 3, chatId: 2 }), // valry with cody
+		Participant.create({ userId: 3, chatId: 2 }) // valry with cody
 	]);
 
 	// Adding Participant-Message Associations
 	await Promise.all([
 		Message.create({ participantId: 2, messageText: "how's it going" }),
-		Message.create({ participantId: 2, messageText: "it's pretty hot" }),
+		Message.create({ participantId: 2, messageText: "it's pretty hot" })
 	]);
 
-	// const cody = await User.findByPk(1);
-	// const murphy = await User.findByPk(2);
-	// cody.addUser(murphy);
+	// Adding Participant-Message Associations
+	await Promise.all([
+		Match.create({ userId: 1, yourMatchId: 2 }),
+		Match.create({ userId: 2, yourMatchId: 1 }),
+		Match.create({ userId: 1, yourMatchId: 3 }),
+		Match.create({ userId: 3, yourMatchId: 1 })
+	]);
 
 	console.log(`seeded ${users.length} users`);
 	console.log(`seeded successfully`);
