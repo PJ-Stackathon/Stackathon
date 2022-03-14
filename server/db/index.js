@@ -6,7 +6,8 @@ const IdealMBTI = require("./models/IdealMBTI");
 const Chat = require("./models/Chat");
 const Participant = require("./models/Participant");
 const Message = require("./models/Message");
-const Match = require('./models/Match')
+const Match = require("./models/Match");
+const Preference = require("./models/Preference");
 
 // ASSOCIATIONS
 
@@ -30,6 +31,10 @@ Message.belongsTo(Participant);
 User.hasMany(Match);
 Match.belongsTo(User);
 
+// Preference has userId as FK
+User.hasMany(Preference);
+Preference.belongsTo(User);
+
 module.exports = {
 	db,
 	models: {
@@ -39,6 +44,6 @@ module.exports = {
 		Participant,
 		Message,
 		Match,
+		Preference
 	}
 };
-
