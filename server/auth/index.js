@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-
+ 
 // npm i @sequelize/core
 const { Op } = require("@sequelize/core");
 const router = require("express").Router();
