@@ -33,9 +33,11 @@ export const BottomNavbar = () => {
 						<i className="ri-chat-3-line"></i>
 					</li>
 				</Link>
+				<Link to="/home">
 				<li>
 					<i className="ri-user-line"></i>
 				</li>
+				</Link>
 			</ul>
 		</div>
 	);
