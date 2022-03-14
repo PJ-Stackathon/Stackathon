@@ -9,7 +9,24 @@ export const Home = props => {
 
 	return (
 		<div>
-			<h3>Welcome, {username}</h3>
+			<div className="settings">
+				<h3 className="title">Settings</h3>
+				<img src={"default-profile-pic.jpg"} className="profile-pic" />
+			</div>
+
+			<div className="settings-features">
+				<ul>
+					<li>
+						<div>Preferences</div>
+					</li>
+					<li>
+						<div>Account</div>
+					</li>
+					<li>
+						<div>Learn about your MBTI</div>
+					</li>
+				</ul>
+			</div>
 		</div>
 	);
 };

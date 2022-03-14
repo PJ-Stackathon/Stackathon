@@ -26,13 +26,6 @@ form div {
 	display: inline-block;
 }
 
-img {
-	max-height: 50px;
-	max-width: 50px;
-	border-radius: 5px;
-	margin-right: 10px;
-}
-
 select {
 	padding: 0 1em 0 0;
 	margin: 0;
@@ -140,3 +133,41 @@ input {
 	align-items: center;
 	width: 100%;
 }
+
+/* ---------------------------- MATCH ROW */
+.match-row {
+	display: flex;
+	margin: 5px;
+	padding: 5px;
+	border-top: 2px solid #ededed;
+}
+
+.match-row-img {
+	max-height: 50px;
+	max-width: 50px;
+	border-radius: 5px;
+	margin-right: 10px;
+}
+
+
+/* ---------------------------- SETTINGS PAGE */
+
+.settings {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+}
+
+.profile-pic {
+	margin: 10px;
+	width: 150px;
+}
+
+.title {
+	margin: 20px;
+}
+
+/* .settings-features li {
+
+} */

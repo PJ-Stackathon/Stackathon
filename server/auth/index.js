@@ -1,3 +1,7 @@
+const Sequelize = require("sequelize");
+
+// npm i @sequelize/core
+const { Op } = require("@sequelize/core");
 const router = require("express").Router();
 const {
 	models: { User, Match, Preference, IdealMBTI }
@@ -10,12 +14,17 @@ const findMatches = async user => {
 			mbti: user.mbti
 		}
 	});
+	const idealMBTIarray = idealMBTIs.map(idealMBTIobj => {
+		return idealMBTIobj.idealMBTI;
+	});
 	const users = await User.findAll({
 		where: {
-			mbti: [...idealMBTIs],
+			mbti: {
+				[Op.or]: [...idealMBTIarray]
+			},
 			loveLanguage: user.loveLanguage
 		}
-	});
+	})
 	return users;
 };
 
@@ -31,7 +40,6 @@ router.post("/signup", async (req, res, next) => {
 	try {
 		const user = await User.create(req.body);
 		const matchArray = await findMatches(user);
-		console.log("LOLOLOLOLOLOLOL", matchArray);
 
 		matchArray.forEach(async match => {
 			await Promise.all([

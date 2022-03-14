@@ -3,13 +3,18 @@ import { Link } from "react-router-dom";
 
 export default function MatchRow(props) {
 	return (
-		<div>
-			<img src={"default-profile-pic.jpg"} />
-			<p>{props.match.firstName}</p>
-			<p>Invited you to start the chat.</p>
+		<div className="match-row">
+			<ul>
+				<li>
+					<img src={"default-profile-pic.jpg" } className="match-row-img"/>
+					<p>{props.match.firstName}</p>
+					<p>Say hello to your MBTI match!</p>
+				</li>
+			</ul>
 		</div>
 	);
 }
 
-
-{/* <Link to={`/users/${props.user.id}/${chatId}`}></Link> */}
+{
+	/* <Link to={`/users/${props.user.id}/${chatId}`}></Link> */
+}
