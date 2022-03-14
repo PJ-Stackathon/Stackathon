@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import { logout } from "../store";
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
-	<div>
-		<h1>Stackathon</h1>
+	<div className="header">
+		<div className="app-name">
+			<h2>Stackathon</h2>
+		</div>
 		<nav>
 			{isLoggedIn ? (
 				<div>

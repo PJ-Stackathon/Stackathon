@@ -70,9 +70,9 @@
 // export const Login = connect(mapLogin, mapDispatch)(AuthForm);
 // export const Signup = connect(mapSignup, mapDispatch)(AuthForm);
 
-import React from 'react';
-import { connect } from 'react-redux';
-import { authenticateSignUp, authenticateLogin } from '../store';
+import React from "react";
+import { connect } from "react-redux";
+import { authenticateSignUp, authenticateLogin } from "../store";
 
 /**
  * COMPONENT
@@ -81,7 +81,7 @@ const AuthFormSignUp = props => {
 	const { name, displayName, handleSubmit, error } = props;
 
 	return (
-		<div>
+		<div className="info-input">
 			<form onSubmit={handleSubmit} name={name}>
 				<div>
 					<label htmlFor="username">
@@ -105,38 +105,59 @@ const AuthFormSignUp = props => {
 					<label htmlFor="password">
 						<h4>Password:</h4>
 					</label>
-					<input name="password" type="text" />
+					<input name="password" type="password" />
 				</div>
 				<div>
 					<label htmlFor="email">
 						<h4>Email:</h4>
 					</label>
-					<input name="email" type="text" />
+					<input name="email" type="email" />
 				</div>
 				<div>
 					<label htmlFor="mbti">
 						<h4>MBTI:</h4>
 					</label>
-					<input name="mbti" type="text" />
+					<select name="mbti">
+						<option value="INFP">INFP</option>
+						<option value="ENFP">ENFP</option>
+						<option value="INFJ">INFJ</option>
+						<option value="ENFJ">ENFJ</option>
+						<option value="INTJ">INTJ</option>
+						<option value="ENTJ">ENTJ</option>
+						<option value="INTP">INTP</option>
+						<option value="ENTP">ENTP</option>
+						<option value="ISFP">ISFP</option>
+						<option value="ESFP">ESFP</option>
+						<option value="ISTP">ISTP</option>
+						<option value="ESTP">ESTP</option>
+						<option value="ISFJ">ISFJ</option>
+						<option value="ESFJ">ESFJ</option>
+						<option value="ISTJ">ISTJ</option>
+						<option value="ESTJ">ESTJ</option>
+					</select>
 				</div>
 				<div>
 					<label htmlFor="loveLanguage">
 						<h4>Love Language:</h4>
 					</label>
-					<input name="loveLanguage" type="text" />
+					<select name="loveLanguage">
+						<option value="words-of-affirmation">Words of Affirmation</option>
+						<option value="quality-time">Quality Time</option>
+						<option value="receiving-gifts">Receiving Gifts</option>
+						<option value="acts-of-service">Acts of Serice</option>
+						<option value="physical-touch">Physical Touch</option>
+					</select>
 				</div>
-				<div>
-					<label htmlFor="openToDrinking">
-						<h4>Open To Drinking:</h4>
-					</label>
-					<input name="openToDrinking" type="text" />
-				</div>
-				<div>
+				{/* <div>
 					<label htmlFor="interestedIn">
 						<h4>Interested In:</h4>
 					</label>
-					<input name="interestedIn" type="text" />
-				</div>
+					<select name="interestedIn">
+						<option value="everyone">Everyone</option>
+						<option value="male">Men</option>
+						<option value="female">Women</option>
+					</select>
+				</div> */}
 				<hr />
 				<div>
 					<button type="submit">{displayName}</button>
@@ -184,16 +205,16 @@ const AuthFormLogin = props => {
  */
 const mapLogin = state => {
 	return {
-		name: 'login',
-		displayName: 'Login',
+		name: "login",
+		displayName: "Login",
 		error: state.auth.error
 	};
 };
 
 const mapSignup = state => {
 	return {
-		name: 'signup',
-		displayName: 'Sign Up',
+		name: "signup",
+		displayName: "Sign Up",
 		error: state.auth.error
 	};
 };
@@ -210,7 +231,20 @@ const mapDispatchSignUp = dispatch => {
 			const email = evt.target.email.value;
 			const mbti = evt.target.mbti.value;
 			const loveLanguage = evt.target.loveLanguage.value;
-			dispatch(authenticateSignUp(username, firstName, lastName, password, email, mbti, loveLanguage, formName));
+			// const interestedIn = evt.target.interestedIn.value;
+			dispatch(
+				authenticateSignUp(
+					username,
+					firstName,
+					lastName,
+					password,
+					email,
+					mbti,
+					loveLanguage,
+					// interestedIn,
+					formName,
+				)
+			);
 		}
 	};
 };
