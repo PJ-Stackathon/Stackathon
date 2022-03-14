@@ -4,7 +4,7 @@ const {
 } = require("../db");
 module.exports = router;
 
-const findMatches = async (user) => {
+const findMatches = async user => {
 	const idealMBTIs = await IdealMBTI.findAll({
 		where: {
 			mbti: user.mbti
@@ -12,12 +12,12 @@ const findMatches = async (user) => {
 	});
 	const users = await User.findAll({
 		where: {
-			mbti: [...idealMBTIs], 
-			loveLanguage: user.loveLanguage 
+			mbti: [...idealMBTIs],
+			loveLanguage: user.loveLanguage
 		}
 	});
 	return users;
-}
+};
 
 router.post("/login", async (req, res, next) => {
 	try {
@@ -29,14 +29,14 @@ router.post("/login", async (req, res, next) => {
 
 router.post("/signup", async (req, res, next) => {
 	try {
-		const user = await User.create(req.body); 
+		const user = await User.create(req.body);
 		const matchArray = await findMatches(user);
-		console.log("LOLOLOLOLOLOLOL", matchArray)
-		
-		matchArray.forEach(async (match) => {
+		console.log("LOLOLOLOLOLOLOL", matchArray);
+
+		matchArray.forEach(async match => {
 			await Promise.all([
 				Match.create({ userId: user.id, yourMatchId: match.id }),
-				Match.create({ userId: match.id, yourMatchId: user.id }),
+				Match.create({ userId: match.id, yourMatchId: user.id })
 			]);
 		});
 		res.send({ token: await user.generateToken() });

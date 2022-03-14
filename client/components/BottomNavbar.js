@@ -16,7 +16,7 @@ export const BottomNavbar = () => {
 						LIKES YOU
 					</div>
 				</li>
-				<Link to="/users">
+				<Link to="/matches">
 					<li>
 						<div>
 							MATCHES
