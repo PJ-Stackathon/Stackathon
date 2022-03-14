@@ -35,6 +35,12 @@ const loveLanguageArray = [
 	"physical-touch"
 ];
 
+const interestedInArray = [
+	"everyone",
+	"male",
+	"female",
+];
+
 // find random single whole number:
 function pickRandom(list) {
 	return list[Math.floor(Math.random() * list.length)];
@@ -57,7 +63,8 @@ async function seed() {
 			password: "123",
 			email: "cody@seed.js",
 			mbti: "ENFJ",
-			loveLanguage: "words-of-affirmation"
+			loveLanguage: "words-of-affirmation",
+			interestedIn: "everyone"
 		}),
 		User.create({
 			username: "murphy123",
@@ -66,7 +73,8 @@ async function seed() {
 			password: "123",
 			email: "murphy@seed.js",
 			mbti: "ISFP",
-			loveLanguage: "words-of-affirmation"
+			loveLanguage: "words-of-affirmation",
+			interestedIn: "everyone"
 		})
 	]);
 
@@ -88,8 +96,7 @@ async function seed() {
 		let email = username + "@seed.js";
 		let mbti = pickRandom(mbtiArray);
 		let loveLanguage = pickRandom(loveLanguageArray);
-		// let city = uniqueNamesGenerator({ dictionaries: [city] });
-		// let state = uniqueNamesGenerator({ dictionaries: [state] });
+		// let interestedIn = pickRandom(interestedInArray);
 		const users = await Promise.all([
 			User.create({
 				username: `${username}`,
@@ -98,7 +105,8 @@ async function seed() {
 				firstName: `${firstName}`,
 				lastName: `${lastName}`,
 				mbti: `${mbti}`,
-				loveLanguage: `${loveLanguage}`
+				loveLanguage: `${loveLanguage}`,
+				// interestedIn: `${interestedIn}`,
 				// city: `${city}`,
 				// state: `${state}`,
 			})
@@ -185,10 +193,10 @@ async function seed() {
 	]);
 
 	// Adding User-Preference Associations
-	await Promise.all([
-		Preference.create({ userId: 1, interestedIn: 'everyone', openToDrinking: true }), // preferences for cody
-		Preference.create({ userId: 2, interestedIn: 'everyone', openToDrinking: true }) // preferences for murphy
-    ]);
+	// await Promise.all([
+	// 	Preference.create({ userId: 1, interestedIn: 'everyone', openToDrinking: true }), // preferences for cody
+	// 	Preference.create({ userId: 2, interestedIn: 'everyone', openToDrinking: true }) // preferences for murphy
+    // ]);
 
 	console.log(`seeded ${users.length} users`);
 	console.log(`seeded successfully`);

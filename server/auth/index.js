@@ -1,11 +1,23 @@
 const router = require("express").Router();
 const {
-	models: { User, Match, Preference }
+	models: { User, Match, Preference, IdealMBTI }
 } = require("../db");
 module.exports = router;
 
-// When the Preference Table is created, uncomment line 8:
-// const findMatches = require("../algorithm");
+const findMatches = async (user) => {
+	const idealMBTIs = await IdealMBTI.findAll({
+		where: {
+			mbti: user.mbti
+		}
+	});
+	const users = await User.findAll({
+		where: {
+			mbti: [...idealMBTIs], 
+			loveLanguage: user.loveLanguage 
+		}
+	});
+	return users;
+}
 
 router.post("/login", async (req, res, next) => {
 	try {
@@ -18,12 +30,9 @@ router.post("/login", async (req, res, next) => {
 router.post("/signup", async (req, res, next) => {
 	try {
 		const user = await User.create(req.body); 
-		//const userPreferences = await Preference.create(req.body);
-		//console.log('REQ.BODY-->', req.body);
-		console.log('USER-->', user);
-		//console.log('PREFEREEEENCE-->', userPreferences);
-		// What if user didn't fill out all the information such as for all the preferences?
-		// const matchArray = findMatches(user);
+		const matchArray = await findMatches(user);
+		console.log("LOLOLOLOLOLOLOL", matchArray)
+		
 		matchArray.forEach(async (match) => {
 			await Promise.all([
 				Match.create({ userId: user.id, yourMatchId: match.id }),
