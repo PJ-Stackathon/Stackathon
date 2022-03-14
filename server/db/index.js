@@ -40,5 +40,5 @@ module.exports = {
 		Message,
 		Match,
 	}
-};
+}; 
 
