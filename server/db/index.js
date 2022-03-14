@@ -6,6 +6,7 @@ const IdealMBTI = require("./models/IdealMBTI");
 const Chat = require("./models/Chat");
 const Participant = require("./models/Participant");
 const Message = require("./models/Message");
+const Match = require('./models/Match')
 
 // ASSOCIATIONS
 
@@ -25,12 +26,18 @@ Participant.belongsTo(Chat);
 Participant.hasMany(Message);
 Message.belongsTo(Participant);
 
+<<<<<<< HEAD
 User.belongsToMany(User, { as: "User", foreignKey: "userId", through: "matches" });
 User.belongsToMany(User, {
 	as: "YourMatch",
 	foreignKey: "yourMatchId",
 	through: "matches"
 });
+=======
+// User has matchId as FK
+User.hasMany(Match);
+Match.belongsTo(User);
+>>>>>>> main
 
 module.exports = {
 	db,
@@ -39,6 +46,8 @@ module.exports = {
 		IdealMBTI,
 		Chat,
 		Participant,
-		Message
+		Message,
+		Match,
 	}
 };
+
