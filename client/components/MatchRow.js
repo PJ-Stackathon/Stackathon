@@ -6,7 +6,7 @@ export default function MatchRow(props) {
 		<div>
 			<img src={"default-profile-pic.jpg"} />
 			<p>{props.match.firstName}</p>
-			<p>Invited you to start the chat.</p>
+			<p>Say hello to your MBTI match!</p>
 		</div>
 	);
 }
