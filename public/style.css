@@ -1,3 +1,15 @@
+/* ---------------------------- FONTS */
+
+
+
+/* ---------------------------- GENERAL */
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
 body {
 	font-family: sans-serif;
 }
@@ -10,12 +22,14 @@ label {
 	display: block;
 }
 
-nav a {
-	display: inline-block;
-	margin: 1em;
-}
-
 form div {
 	margin: 1em;
 	display: inline-block;
+}
+
+/* ---------------------------- NAV BAR */
+
+nav a {
+	display: inline-block;
+	margin: 1em;
 }
