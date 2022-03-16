@@ -1,4 +1,4 @@
-"use strict";
+"use strict"; 
 const {
 	db,
 	models: { User, IdealMBTI, Chat, Participant, Message, Match, Preference }
